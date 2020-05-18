@@ -85,12 +85,14 @@ class Add_gauss_noise_DAE():
 if __name__ == '__main__':
     mnist = tf.examples.tutorials.mnist.input_data.read_data_sets('MNIST_data/',one_hot = True)
     dae = Add_gauss_noise_DAE(784,300,0.005,0.1)
-    batch_size = 128
-    epochs = 10
-    steps_per_epoch = mnist.train.images.shape[0] // batch_size
-    for epoch in range(epochs):
-        for step in range(steps_per_epoch):
-            batch_x,batch_y = mnist.train.next_batch(batch_size)
+
+    BATCH_SIZE = 128
+    EPOCHS = 10
+    STEPS_PER_EPOCH = mnist.train.images.shape[0] // batch_size
+
+    for epoch in range(EPOCHS):
+        for step in range(STEPS_PER_EPOCH):
+            batch_x,batch_y = mnist.train.next_batch(BATCH_SIZE)
             loss = dae.batch_train(batch_x)
         print('Epoch %d:'%epoch,loss)
     
@@ -98,6 +100,7 @@ if __name__ == '__main__':
     noise_image = (mnist.test.images[0] + 0.1*np.random.normal(
             loc = 0,scale = 1,size = [784,])).reshape([28,28])
     reconstracted_image = dae.reconstruct(origin_image.reshape([1,784])).reshape(28,28)
+    
     plt.imshow(origin_image)
     plt.imshow(noise_image)
     plt.imshow(reconstracted_image)
