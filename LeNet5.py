@@ -9,7 +9,6 @@ from tensorflow.examples.tutorials.mnist import input_data
 
 mnist = input_data.read_data_sets('MNIST_data',one_hot = True)
 
-
 '''
 X -> conv1 -> relu -> pooling1 -> conv2 - relu -> pooling2 -> fc1 -> 
 relu -> dropout -> fc2 -> softmax -> y_
@@ -68,7 +67,4 @@ with tf.Session() as sess:
     print('Testing accuracy:',accuracy.eval(feed_dict = {X:mnist.test.images,
                                                          y:mnist.test.labels,
                                                          keep_prob:1.0}))
-            
-
-
-
+       
